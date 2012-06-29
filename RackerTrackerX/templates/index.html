@@ -1,0 +1,66 @@
+{% extends "master.html" %}
+
+{% block content %}
+    <script type="text/javascript">
+    function setToday() {
+        var todayCheck = document.getElementById("cToday");
+        var todayButton = document.getElementById("today");
+
+        if( todayCheck.checked == false ) {
+            todayCheck.checked=true;
+            todayButton.style.backgroundColor = "#990033";
+            todayButton.style.borderColor = "#7E002A";
+        }
+        else {
+            todayCheck.checked=false;
+            todayButton.style.backgroundColor = "#0099FF";
+            todayButton.style.borderColor = "#0074C2";
+        }
+    }
+    function setYesterday() {
+        var check = document.getElementById("cYesterday");
+        var button = document.getElementById("yesterday");
+
+        if( check.checked == false ) {
+            check.checked=true;
+            button.style.backgroundColor = "#990033";
+            button.style.borderColor = "#7E002A";
+        }
+        else {
+            check.checked=false;
+            button.style.backgroundColor = "#0099FF";
+            button.style.borderColor = "#0074C2";
+        }
+    }
+    function setTwoDays() {
+        var check = document.getElementById("cTwodays");
+        var button = document.getElementById("twodays");
+
+        if( check.checked == false ) {
+            check.checked=true;
+            button.style.backgroundColor = "#990033";
+            button.style.borderColor = "#7E002A";
+        }
+        else {
+            check.checked=false;
+            button.style.backgroundColor = "#0099FF";
+            button.style.borderColor = "#0074C2";
+        }
+    }
+    </script>
+    <div id="login_box">
+        <div id="buttons">
+            <span class="button" onclick="setToday()" id="today">Today</span>
+            <span class="button" onclick="setYesterday()" id="yesterday">Yesterday</span>
+            <span class="button" onclick="setTwoDays()" id="twodays">Two Days Ago</span>
+        </div>
+        <form method="post" action="/workouts/add">
+            {% csrf_token %}
+            Email: <input type="text" name="email"/><br />
+            <input class="checks" id="cToday" type="checkbox" name="days" value="0"/>
+            <input class="checks" id="cYesterday" type="checkbox" name="days" value="1"/>
+            <input class="checks" id="cTwodays"	 type="checkbox" name="days" value="2"/>
+            <input id="submit" type="image" src="{{ STATIC_URL }}images/submit_button.png" alt="submit"/>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "master.html" %}
+{% block content %}
+<div>
+<ul class="standings">
+{% for user in workouts %}
+    <li class="entry" style="width: {{ user.scale }}%">
+    <div class="count">{{ user.count }}</div>
+    <div class="name">{{ user.name }}&nbsp;</div>
+    </li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}

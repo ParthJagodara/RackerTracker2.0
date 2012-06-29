@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RackerTrackerX</title>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap-responsive.css"/>
+    <script class="jsbin" src="{{ STATIC_URL }}javascript/jquery-1.7.2.js"></script>
+    <script src="{{STATIC_URL}}javascript/bootstrap-tooltip.js"></script>
+<style>
+  .score {float:right;}
+  .player {background-color: #468847; opacity:0.5; border-radius:9px;margin:6px 0; padding:3px 10px;color:
+</style>
+</head>
+<body>
+<div>
+<ul class="standings">
+{% for user in workouts %}
+    <li class="player" style="width: {{ user.scale }}%">
+    <div class="name">{{ user.name }}</div>
+    <div class="score">{{ user.count }}&nbsp;</div>
+    </li>
+{% endfor %}
+</ul>
+</div>
+</body>
+
+</html>
