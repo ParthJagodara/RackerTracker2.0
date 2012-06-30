@@ -20,6 +20,10 @@ urlpatterns += patterns('rackertracker.views',
     url(r'^bootstrap/$', 'bootstrapIndex')
 )
 
+urlpatterns += patterns('rackertracker.ajax',
+    url(r'^ajax/workouts/$', 'workouts'),
+)
+
 urlpatterns += patterns('rackertracker.racker',
     #GET and POST
     #racker/create (post: name, email)
