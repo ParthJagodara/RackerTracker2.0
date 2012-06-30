@@ -5,6 +5,16 @@ from rackertracker.competitiondates import getRangeEnd
 from operator import itemgetter
 
 def workouts(request):
+    if request.method == 'POST':
+        return HttpResponse('ok')
+        email = request.POST.get('email', False)
+        exercise = request.POST.get('exercise', False)
+        return HttpResponse('ajax')
+        #return HttpResponse(simplejson.dumps(standing()), mimetype="application/json")
+    if request.method == 'POST' or request.method == 'GET':
+        return HttpResponse(simplejson.dumps(standing()), mimetype="application/json")
+
+def standing():
     response_data = {}
     response_data['month'] = getRangeEnd().strftime('%B')
     response_data['year'] = getRangeEnd().year
@@ -22,4 +32,4 @@ def workouts(request):
         user['score'] = workoutsInRange.filter(racker=tempRacker).count()
         users.append(user)
     response_data['users'] = sorted(users, key=itemgetter('score'), reverse=True)
-    return HttpResponse(simplejson.dumps(response_data), mimetype="application/json")
+    return response_data
