@@ -11,7 +11,7 @@ def workouts(request):
         email = request.POST.get('email', False)
         try:
             r = Racker.objects.get(email = email)
-        except DoesNotExist:
+        except Racker.DoesNotExist:
             r = Racker.objects.create(name = email, email = email)
         exlist = range(3)
         for num in exlist:
@@ -19,13 +19,10 @@ def workouts(request):
             if exercise != False:
                 try:
                     d = datetime.fromtimestamp(int(exercise)/1000)
-                    print(d)
                 except ValueError:
                     print('error')
-                print(r)
                 try:
                     w = Workout.objects.create(racker = r, date = d)
-                    print(w)
                 except IntegrityError:
                     print('integrity error caught, workout exists')
     if request.method == 'POST' or request.method == 'GET':
