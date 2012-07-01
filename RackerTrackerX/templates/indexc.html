@@ -123,30 +123,37 @@ $('#loginButton').click(function(){
 $('#submitButton').click(function() {
   var now = new Date();
   var post = {};
-  $('#input .btn-group .btn-success').each(function(){
-    var key = $(this).parents('.row').attr('id'),
-        val = $(this).data('time');
+  //$('#input .btn-group .btn-success').each(function(){
+  //  var key = $(this).parents('.row').attr('id'),
+  //      val = $(this).data('time');
     // The key is always exercise for now
-    if (!post[key]) post[key] = [];
-    post[key].push(val);
-  });
+  //  if (!post[key]) post[key] = [];
+  //  post[key].push(val);
+  $.each($('#input .btn-group .btn-success'), function(index, value) {
+    post[index] = $(this).data('time')
+    }
+  );
   var email = validate_email();
   if (! email) {
     alert('Please provide a valid mailtrust.com email address');
     return false;
   }
-  post.email = email;
-  post.time = now.getTime();
+  email = email;
+  time = now.getTime();
   //$('<pre>').html(JSON.stringify(post,null,'\t')).prependTo('#results');
-  $.ajax({
-    type: 'POST',
-    url: '/ajax/workouts/',
-    data: JSON.stringify(post),
-    success: function(data) {
+ // $.ajax({
+   // type: 'POST',
+   // url: '/ajax/workouts/',
+    //data: JSON.stringify(post),
+    $.post('/ajax/workouts/', {
+        exercise: post,
+        email: email,
+        time: time,
+    }, function(data) {
       draw_results(data.users, data.month);
       $('#input, #results').slideToggle();
     }
-  });
+  ), "json";
 });
 
 function validate_email() {

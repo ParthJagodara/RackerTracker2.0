@@ -3,14 +3,21 @@ from django.utils import simplejson
 from rackertracker.models import Racker, Workout, CompanyLunch
 from rackertracker.competitiondates import getRangeEnd
 from operator import itemgetter
+from datetime import datetime
 
 def workouts(request):
     if request.method == 'POST':
-        return HttpResponse('ok')
         email = request.POST.get('email', False)
-        exercise = request.POST.get('exercise', False)
-        return HttpResponse('ajax')
-        #return HttpResponse(simplejson.dumps(standing()), mimetype="application/json")
+        try:
+            r = Racker.objects.get(email = email)
+        except DoesNotExist:
+            createRacker = []
+        exlist = [ 0, 1, 2 ]
+        for num in exlist:
+            exercise = request.POST.get('exercise[' + unicode(num) + ']', False)
+            if exercise:
+                d = datetime.fromtimestamp(exercise)
+                w = Workout.objects.create(racker = r, date = d)
     if request.method == 'POST' or request.method == 'GET':
         return HttpResponse(simplejson.dumps(standing()), mimetype="application/json")
 
