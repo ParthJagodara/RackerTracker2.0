@@ -9,6 +9,8 @@ RackerTracker2.0 = RackerTracker1.0 + new Features() {
 }
 
 ##TODO:
+* Add ability for admin to query workouts of a racker in the past
+ * Make it so admins can add badges at will?
 * Create user pages /racker/{id}
  * Display graphs of usage
  * Display times won and bages (to come)
