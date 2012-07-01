@@ -9,11 +9,6 @@ RackerTracker2.0 = RackerTracker1.0 + new Features() {
 }
 
 ##TODO:
-* Create a master.html for bootstrap
-* Update login page (currently indexb.html) to just use email
-* Replicate how current rackertracer website generates table
- * Add ajax request for data
- * Update UI to have view standing
 * Create user pages /racker/{id}
  * Display graphs of usage
  * Display times won and bages (to come)
