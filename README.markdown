@@ -12,6 +12,9 @@ RackerTracker2.0 = RackerTracker1.0 + new Features() {
 * Create user pages /racker/{id}
  * Display graphs of usage
  * Display times won and bages (to come)
+* How should picking the CompanyLunch work?
+ * Pick two latest dates?
+ * Have admin select dates?
 
 ## Instruction to create SQLite Database
 
