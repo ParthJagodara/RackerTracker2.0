@@ -1,66 +1,223 @@
 {% extends "master.html" %}
 
-{% block content %}
-    <script type="text/javascript">
-    function setToday() {
-        var todayCheck = document.getElementById("cToday");
-        var todayButton = document.getElementById("today");
+{% block content %} 
+<form id="input" class="container">
+<div id="exercise" class="row">
+  <h1>I <abbr title="20+ minutes of increased heartrate">exercised</abbr></h1>
+  <div class="btn-group" data-toggle="buttons-checkbox">
+    <button>today</button><button>yesterday</button><button>two days ago</button>
+  </div>
+</div><!--
+<div id="eco-commute" class="row">
+    <h1>I <abbr title="foot, bike, bus, tube, carpool, 30+MPG vehicle, nuclear submarine, or WFH">clean</abbr> commuted</h1>
+  <div class="btn-group" data-toggle="buttons-checkbox">
+    <button>today</button><button>yesterday</button><button>two days ago</button>
+  </div>
+</div>
+<div id="eco-hibernate" class="row">
+  <h1>I <abbr title="at least 12hrs of sleep mode for all my office computers and monitors">hibernated</abbr> my workstation</h1>
+  <div class="btn-group" data-toggle="buttons-checkbox">
+    <button>today</button><button>yesterday</button><button>two days ago</button>
+  </div>
+</div>-->
+<div class="row">
+  <fieldset id="login" class="btn btn-inverse">
+    <input id="email" type="text" placeholder="you@mailtrust.com">
+    <!--
+    <input type="password" placeholder="p4$$W0rD">
+    <button id="loginButton" class="btn-info">Login</button>
+    -->
+    <button id="submitButton" class="btn-info">Submit!</button>
+    <div class="note">In just 20 minutes a day, Racksburgers can put a little motion into our otherwise sendentary profession.</div>
+  </fieldset>
+  <fieldset id="submit">
+    <button id="submitButtonOld" class="btn-info">Submit!</button>
+    <div class="note">You're now logged in as long as you keep this cookie. Obviously, you're on the honor system here. Accidental resubmissions for the same calendar day will only be counted once. Be sure to set a daily recurring <a target="_blank" href="http://www.rackspace.com/apps/support/portal/1409">calendar reminder</a>. For advanced users only: try dragging across buttons to toggle with a swipe.</div>
+  </fieldset>
+</div>
+      
+<div class="row">
+  <a href="javascript:show_results();" id="view_standings">View Standings</a>
+</div>
+<div class="row">
+  <a href="javascript:$('#details').slideToggle();" >Competition details</a>
+  <div id="details">
+    Grand prize: a $50 check card drawn randomly each month at the company lunch from the pool of submitted names. Participation neccessary. Void where null == true.
+  </div>
+</div>
+</form>
 
-        if( todayCheck.checked == false ) {
-            todayCheck.checked=true;
-            todayButton.style.backgroundColor = "#990033";
-            todayButton.style.borderColor = "#7E002A";
-        }
-        else {
-            todayCheck.checked=false;
-            todayButton.style.backgroundColor = "#0099FF";
-            todayButton.style.borderColor = "#0074C2";
-        }
-    }
-    function setYesterday() {
-        var check = document.getElementById("cYesterday");
-        var button = document.getElementById("yesterday");
+<div id="results" class="container">
+  <h1><span id="results_month"></span> <span id="results_year"></span> Standings</h1>
+  <div id="results_graph" class="container">
+  </div>
+  <button id="return" class='btn btn-info'>back</button>
+</div>
 
-        if( check.checked == false ) {
-            check.checked=true;
-            button.style.backgroundColor = "#990033";
-            button.style.borderColor = "#7E002A";
-        }
-        else {
-            check.checked=false;
-            button.style.backgroundColor = "#0099FF";
-            button.style.borderColor = "#0074C2";
-        }
-    }
-    function setTwoDays() {
-        var check = document.getElementById("cTwodays");
-        var button = document.getElementById("twodays");
+<script>
 
-        if( check.checked == false ) {
-            check.checked=true;
-            button.style.backgroundColor = "#990033";
-            button.style.borderColor = "#7E002A";
-        }
-        else {
-            check.checked=false;
-            button.style.backgroundColor = "#0099FF";
-            button.style.borderColor = "#0074C2";
-        }
+var globalDelay = 500,
+    getTime = function(daysAgoText, pretty) {
+      var daysAgoCount = ['today','yesterday','two days ago'].indexOf(daysAgoText),
+          today = new Date(), 
+          output = new Date(today.getTime() - daysAgoCount * 24 * 3600000);
+      return pretty ? output.toString().slice(0,10) : output.getTime();
+    };
+
+$('[title]').tooltip({delay:globalDelay});
+
+$('button').addClass('btn btn-large').each(function(){
+  if (!$(this).parents().is('.btn-group')) return;
+  $(this).data({
+    time: getTime(this.innerHTML)
+  }).tooltip({
+    title: getTime(this.innerHTML, true), 
+    placement: 'bottom', 
+    delay: globalDelay
+  });
+}).click(function(e){
+  e.preventDefault();
+  $(this).toggleClass('btn-success');
+}).mousedown(function(){
+  $first = $(this);
+  $('.btn-group button').mouseover(function(){
+    $(this).click();
+    $first.click(); $first = $();
+  });
+}).parents('body').mouseup(function(){
+  $('.btn-group button').unbind('mouseover');
+});
+
+// set login as wide as the rendered button groups 
+$('#login, #submit, #details').css({width:$('.btn-group').width()});
+
+$('#loginButton').click(function(){
+  $('#login, #submit').slideToggle();
+});
+
+// make post object
+$('#submitButton').click(function() {
+  var now = new Date();
+  var post = {};
+  //$('#input .btn-group .btn-success').each(function(){
+  //  var key = $(this).parents('.row').attr('id'),
+  //      val = $(this).data('time');
+    // The key is always exercise for now
+  //  if (!post[key]) post[key] = [];
+  //  post[key].push(val);
+  $.each($('#input .btn-group .btn-success'), function(index, value) {
+    post[index] = $(this).data('time')
     }
-    </script>
-    <div id="login_box">
-        <div id="buttons">
-            <span class="button" onclick="setToday()" id="today">Today</span>
-            <span class="button" onclick="setYesterday()" id="yesterday">Yesterday</span>
-            <span class="button" onclick="setTwoDays()" id="twodays">Two Days Ago</span>
-        </div>
-        <form method="post" action="/workouts/add">
-            {% csrf_token %}
-            Email: <input type="text" name="email"/><br />
-            <input class="checks" id="cToday" type="checkbox" name="days" value="0"/>
-            <input class="checks" id="cYesterday" type="checkbox" name="days" value="1"/>
-            <input class="checks" id="cTwodays"	 type="checkbox" name="days" value="2"/>
-            <input id="submit" type="image" src="{{ STATIC_URL }}images/submit_button.png" alt="submit"/>
-        </form>
-    </div>
+  );
+  var email = validate_email();
+  if (! email) {
+    alert('Please provide a valid mailtrust.com email address');
+    return false;
+  }
+  email = email;
+  time = now.getTime();
+  //$('<pre>').html(JSON.stringify(post,null,'\t')).prependTo('#results');
+ // $.ajax({
+   // type: 'POST',
+   // url: '/ajax/workouts/',
+    //data: JSON.stringify(post),
+    $.post('/ajax/workouts/', {
+        exercise: post,
+        email: email,
+        time: time,
+    }, function(data) {
+      draw_results(data.users, data.month);
+      $('#input, #results').slideToggle();
+    }
+  ), "json";
+});
+
+function validate_email() {
+  var email = $.trim($('#email').val());
+  if (!email || ! email.match(/^.+@mailtrust.com$/)) {
+    return false;
+  }
+  return email;
+}
+
+function show_results() {
+  $.ajax({
+    type: 'GET',
+    url: '/ajax/workouts/',
+    success: function(data) {
+      draw_results(data.users, data.month, data.year);
+      $('#input, #results').slideToggle();
+    }
+  });
+}
+
+function draw_results(players, month, year) {
+  $('#results_month').html(month);
+  $('#results_year').html(year);
+  $('#results_graph').html('');
+  var max = 31;
+  var nameWidth = 140;
+  var maxWidth = $('#results').width()-nameWidth-18; //for badge padding
+  for(i=0; i < players.length; i++){
+    var player = players[i];
+    var email = player['email'];
+    var user = email.split('@')[0];
+    var score = player['score'];
+    $('<div class="badge">').html(
+      user + ' <span style="float:right">'+score+'</span>'
+    ).css({
+      width: nameWidth + score / max * maxWidth,
+      'white-space': 'normal',
+      margin: '8px 0px'
+    }).appendTo('#results_graph');
+  }
+
+  var current_email = validate_email();
+  if (current_email) {
+    var current_name = current_email.split('@')[0];
+    $("div.badge:contains('" + current_name + "')").addClass('badge-success');
+  }
+};
+
+$('#return').click(function(){  
+  $('#input, #results').slideToggle();
+});
+
+jQuery(document).ajaxSend(function(event, xhr, settings) {
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    function sameOrigin(url) {
+        // url could be relative or scheme relative or absolute
+        var host = document.location.host; // host + port
+        var protocol = document.location.protocol;
+        var sr_origin = '//' + host;
+        var origin = protocol + sr_origin;
+        // Allow absolute or scheme relative URLs to same origin
+        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
+            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
+            // or any other URL that isn't scheme relative or absolute i.e relative.
+            !(/^(\/\/|http:|https:).*/.test(url));
+    }
+    function safeMethod(method) {
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
+        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+    }
+});
+</script>
 {% endblock %}
