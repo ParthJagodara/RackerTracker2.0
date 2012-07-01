@@ -10,7 +10,6 @@ DJANGO_R00T = os.path.dirname(os.path.realpath(django.__file__))
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
 
 ADMINS = (
-    ('David McGrath', 'david.mcgrath@rackspace.com'),
     # ('Your Name', 'your_email@example.com'),
 )
 

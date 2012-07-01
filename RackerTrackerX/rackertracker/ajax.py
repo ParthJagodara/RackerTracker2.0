@@ -4,6 +4,7 @@ from rackertracker.models import Racker, Workout, CompanyLunch
 from rackertracker.competitiondates import getRangeEnd
 from operator import itemgetter
 from datetime import datetime
+from django.db import IntegrityError
 
 def workouts(request):
     if request.method == 'POST':
@@ -11,13 +12,22 @@ def workouts(request):
         try:
             r = Racker.objects.get(email = email)
         except DoesNotExist:
-            createRacker = []
-        exlist = [ 0, 1, 2 ]
+            r = Racker.objects.create(name = email, email = email)
+        exlist = range(3)
         for num in exlist:
             exercise = request.POST.get('exercise[' + unicode(num) + ']', False)
-            if exercise:
-                d = datetime.fromtimestamp(exercise)
-                w = Workout.objects.create(racker = r, date = d)
+            if exercise != False:
+                try:
+                    d = datetime.fromtimestamp(int(exercise)/1000)
+                    print(d)
+                except ValueError:
+                    print('error')
+                print(r)
+                try:
+                    w = Workout.objects.create(racker = r, date = d)
+                    print(w)
+                except IntegrityError:
+                    print('integrity error caught, workout exists')
     if request.method == 'POST' or request.method == 'GET':
         return HttpResponse(simplejson.dumps(standing()), mimetype="application/json")
 
