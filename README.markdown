@@ -9,14 +9,14 @@ RackerTracker2.0 = RackerTracker1.0 + new Features() {
 }
 
 ##TODO:
-* Create a master.html for bootstrap
-* Update login page (currently indexb.html) to just use email
-* Replicate how current rackertracer website generates table
- * Add ajax request for data
- * Update UI to have view standing
+* Add ability for admin to query workouts of a racker in the past
+ * Make it so admins can add badges at will?
 * Create user pages /racker/{id}
  * Display graphs of usage
  * Display times won and bages (to come)
+* How should picking the CompanyLunch work?
+ * Pick two latest dates?
+ * Have admin select dates?
 
 ## Instruction to create SQLite Database
 
