@@ -13,7 +13,7 @@ RackerTracker2.0 = RackerTracker1.0 + new Features() {
  * Make it so admins can add badges at will?
 * Create user pages /racker/{id}
  * Display graphs of usage 
-  * Possible resource: http://d3js.org/
+  * Possible resource: http://d3js.org/ or http://www.jqplot.com/
  * Display times won and bages (to come)
 * How should picking the CompanyLunch work?
  * Pick two latest dates?
