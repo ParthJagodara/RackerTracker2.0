@@ -3,8 +3,7 @@ from django.shortcuts import render_to_response
 from django.http import *
 from models import Racker, Workout
 import json
-from rackertracker.models import CompetitionDates
-from rackertracker.competitiondates import getCurrentDates
+from rackertracker.competitiondates import getRangeStart, getRangeEnd
 from random import randint
 
 
@@ -15,8 +14,8 @@ def getPercentage():
     names = []
     counter = 0
     percentagelist = []
-    start = getCurrentDates().start
-    end = getCurrentDates().end
+    start = getRangeStart()
+    end = getRangeEnd()
     for racker in rackerlist:
         email = racker.email
         print email
@@ -51,24 +50,12 @@ def selectWinnerNow():
     winner = Winner_pick.racker
     print winner.email
 
-def filterWorkouts(start, end):
-    workout = Workout.objects.filter(date__gte = start, date__lte = end)
-    workout = order_by('racker')
-    return workout
-
-def personalStanding(email):
-    racker = Racker.objects.filter(email = email)
-    start = getCurrentDates().start
-    end = getCurrentDates().end
-    workoutlist = Workout.objects.filter(date__gte = start, date__lte = end, racker = racker)
-    return len(workoutlist)
-
 def getStanding():
     rackerlist = Racker.objects.all()
     names = []
     w = []
-    start = getCurrentDates().start
-    end = getCurrentDates().end
+    start = getRangeStart()
+    end = getRangeEnd()
     for racker in rackerlist:
         email = racker.email
         print email

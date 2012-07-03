@@ -1,16 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>RackerTrackerX</title>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}style.css"/>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap.css"/>
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}bootstrap-responsive.css"/>
-{% block javascript %} {%endblock%}
+  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+  <script src=" http://twitter.github.com/bootstrap/assets/js/bootstrap-tooltip.js"></script>
+  <script src=" http://twitter.github.com/bootstrap/assets/js/bootstrap-button.js"></script>
+  <link rel="stylesheet" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css">
+<style>
+  body {padding:140px 40px; margin:0px;}
+  h1 {margin-bottom: 20px;}
+  .container {margin: auto; width:500px;}
+  .row {margin-bottom: 40px; text-align: center;}  
+  .btn {margin: 16px 0px;font-weight:bold}
+  .btn-group {display:inline-block;}
+  abbr {border-bottom: dotted 1px #AAA;cursor: help;}
+  #submit, #results, #details {display: none;margin:0 auto;}
+  /*
+  #submitButton {width:100%;}
+  */
+  #login {box-sizing:border-box;padding:30px 0;margin:0 auto;}
+  #login input {height:30px;}
+  .note {font-weight: normal;margin:10px 40px;}
+</style>
 </head>
 <body>
-    <div id="tracker_title">
-        <img src="{{ STATIC_URL }}images/title.png" alt="RackerTracker"/>
-    </div>
     <div id="content">
     {% block content %}{% endblock %}
     </div>

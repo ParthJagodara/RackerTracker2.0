@@ -5,7 +5,6 @@ from django.http import *
 from models import Racker, Workout
 from rackertracker.racker import getRacker
 from django.shortcuts import redirect
-from rackertracker.workouthelper import getStanding, sumPersonalWorkouts
 from django.db import IntegrityError
 
 ##
