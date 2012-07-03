@@ -22,9 +22,15 @@ RackerTracker2.0 = RackerTracker1.0 + new Features() {
 
 Create the table definitions, then sync the DB.
 
+This should be done every time a new class is added to the model.
+
 <pre><code>python manage.py sql rackertracker
 
 python manage.py syncdb</code></pre>
+
+If this fails, you may need to reset the tables
+
+<pre><code>python manage.py reset rackertracker</code></pre>
 
 ## How to start the Django server
 
