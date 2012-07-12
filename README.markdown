@@ -9,6 +9,8 @@ RackerTracker2.0 = RackerTracker1.0 + new Features() {
 }
 
 ##TODO:
+* Add a key to SelectWinner so people know which color they are.
+* Make names = user, {user}@mailtrust.com
 * Add ability for admin to query workouts of a racker in the past
  * Make it so admins can add badges at will?
 * Create user pages /racker/{id}
