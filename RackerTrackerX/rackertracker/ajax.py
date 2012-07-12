@@ -47,3 +47,19 @@ def standing():
         users.append(user)
     response_data['users'] = sorted(users, key=itemgetter('score'), reverse=True)
     return response_data
+
+def individual(request, user):
+    return HttpResponse(user)
+    if request.method == 'GET':
+        #need to define start and end
+        #need to pass user through url
+        workoutsInRange = Workout.objects.filter(date__gte = startDate, date__lte = endDate)
+        email = request.GET.get('email', False)
+        try:
+            r = Racker.objects.get(email = email)
+        except Racker.DoesNotExist:
+            return HttpResponse("error")
+        rackerWorkouts = workoutsInRange.filter(racker = r).count()
+        data = {}
+        data['workouts'] = rackerWorkouts
+        return HttpResponse(simplejson.dumps(data), mimetype="application/json")
