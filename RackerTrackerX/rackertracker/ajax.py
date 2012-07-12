@@ -49,12 +49,14 @@ def standing():
     return response_data
 
 def individual(request, user):
-    return HttpResponse(user)
     if request.method == 'GET':
         #need to define start and end
         #need to pass user through url
+        email = user.strip() + '@mailtrust.com'
+        orderedLunches = CompanyLunch.objects.order_by('date')
+        startDate = orderedLunches[0].date
+        endDate = orderedLunches[1].date
         workoutsInRange = Workout.objects.filter(date__gte = startDate, date__lte = endDate)
-        email = request.GET.get('email', False)
         try:
             r = Racker.objects.get(email = email)
         except Racker.DoesNotExist:
