@@ -33,6 +33,16 @@ If this fails, you may need to reset the tables
 
 <pre><code>python manage.py reset rackertracker</code></pre>
 
+NOTE!
+
+Currently, you need to add two company lunches to the database.
+
+If they don't exist, the website will not work.
+
+I don't think there will ever be a case where there isn't two company dates.
+
+Although, validation would be nice.
+
 ## How to start the Django server
 
 <pre>python manage.py runserver 0.0.0.0:8000</pre>

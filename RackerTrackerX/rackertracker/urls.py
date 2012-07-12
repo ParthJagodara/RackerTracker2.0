@@ -17,7 +17,6 @@ urlpatterns += patterns('rackertracker.views',
     #GET
     #(the hompage)
     url(r'^$', 'index'),
-    url(r'^bootstrap/$', 'bootstrapIndex')
 )
 
 urlpatterns += patterns('rackertracker.ajax',
