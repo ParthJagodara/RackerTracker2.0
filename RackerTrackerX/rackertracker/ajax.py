@@ -51,7 +51,6 @@ def standing():
 def individual(request, user):
     if request.method == 'GET':
         #need to define start and end
-        #need to pass user through url
         email = user.strip() + '@mailtrust.com'
         orderedLunches = CompanyLunch.objects.order_by('date')
         startDate = orderedLunches[0].date
