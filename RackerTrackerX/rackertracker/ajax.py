@@ -12,7 +12,8 @@ def workouts(request):
         try:
             r = Racker.objects.get(email = email)
         except Racker.DoesNotExist:
-            r = Racker.objects.create(name = email, email = email)
+            name = email.split('@')[0]
+            r = Racker.objects.create(name = name, email = email)
         exlist = range(3)
         for num in exlist:
             exercise = request.POST.get('exercise[' + unicode(num) + ']', False)
