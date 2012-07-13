@@ -10,7 +10,8 @@ dateSelect = '([0-9]{2}-[0-9]{2}-[0-9]{4})'
 racker = '(.+)'
 
 urlpatterns = patterns('',
-    url(r'^admin/selectwinner', 'rackertracker.adminpages.selectwinner'),
+    url(r'^admin/[s|S]elect[w|W]inner', 'rackertracker.adminpages.selectwinner'),
+    url(r'^admin/[q|Q]uery[r|R]acker', 'rackertracker.adminpages.queryRacker'),
     url(r'^admin/', include(admin.site.urls)),
 )
 
@@ -49,11 +50,6 @@ urlpatterns += patterns('rackertracker.workouts',
     #GET and POST
     #racker/edit (post: name)
     url(r'^workouts$', "stats"),
-
-    #POST
-    #selectwinner
-    url(r'^selectwinner$', 'selectwinner'),    
-
     #POST
     #selectwinner
     url(r'^workouts/add$', 'add'),
