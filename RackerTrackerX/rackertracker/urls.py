@@ -22,7 +22,7 @@ urlpatterns += patterns('rackertracker.views',
 
 urlpatterns += patterns('rackertracker.ajax',
     url(r'^ajax/workouts/$', 'workouts'),
-    url(r'^ajax/workouts/' + racker + '/' + dateSelect + '/' + dateSelect, 'individual'),
+    url(r'^ajax/workouts/' + racker + '/' + dateSelect + '/' + dateSelect + '$', 'individual'),
 )
 
 urlpatterns += patterns('rackertracker.racker',
