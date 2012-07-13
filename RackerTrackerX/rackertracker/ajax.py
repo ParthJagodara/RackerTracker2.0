@@ -48,13 +48,14 @@ def standing():
     response_data['users'] = sorted(users, key=itemgetter('score'), reverse=True)
     return response_data
 
-def individual(request, user):
+def individual(request, user, start, end):
+    dateFormat = '%m-%d-%Y'
     if request.method == 'GET':
         #need to define start and end
         email = user.strip() + '@mailtrust.com'
         orderedLunches = CompanyLunch.objects.order_by('date')
-        startDate = orderedLunches[0].date
-        endDate = orderedLunches[1].date
+        startDate = datetime.strptime(start, dateFormat)
+        endDate = datetime.strptime(end, dateFormat)
         workoutsInRange = Workout.objects.filter(date__gte = startDate, date__lte = endDate)
         try:
             r = Racker.objects.get(email = email)

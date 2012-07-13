@@ -6,7 +6,8 @@ admin.autodiscover()
 
 rackerSelect = '([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})'
 pastThreeDays = '(today|yesterday|two days ago)'
-dateSelect = '([0-9]{1,2}-[0-9]{1,2}-[0-9]{4})'
+dateSelect = '([0-9]{2}-[0-9]{2}-[0-9]{4})'
+racker = '(.+)'
 
 urlpatterns = patterns('',
     url(r'^admin/selectwinner', 'rackertracker.adminpages.selectwinner'),
@@ -21,7 +22,7 @@ urlpatterns += patterns('rackertracker.views',
 
 urlpatterns += patterns('rackertracker.ajax',
     url(r'^ajax/workouts/$', 'workouts'),
-    url(r'^ajax/workouts/(.+)', 'individual'),
+    url(r'^ajax/workouts/' + racker + '/' + dateSelect + '/' + dateSelect, 'individual'),
 )
 
 urlpatterns += patterns('rackertracker.racker',
