@@ -1,6 +1,6 @@
 {% extends "master.html" %}
 
-{% block content %} 
+{% block content %}
 <form id="input" class="container">
 <div id="exercise" class="row">
   <h1>I <abbr title="20+ minutes of increased heartrate">exercised</abbr></h1>
@@ -52,6 +52,16 @@
   <div id="results_graph" class="container">
   </div>
   <button id="return" class='btn btn-info'>back</button>
+</div>
+
+<div class="modal hide" id="racker">
+    <h3>Test
+    asdf
+    asdf
+    asdf
+    asdf
+    asdf
+    </h3>
 </div>
 
 <script>
@@ -163,7 +173,7 @@ function draw_results(players, month, year) {
     var email = player['email'];
     var user = email.split('@')[0];
     var score = player['score'];
-    $('<div class="badge">').html(
+    $('<div class="badge" id="bar">').html(
       user + ' <span style="float:right">'+score+'</span>'
     ).css({
       width: nameWidth + score / max * maxWidth,
@@ -181,6 +191,13 @@ function draw_results(players, month, year) {
 
 $('#return').click(function(){  
   $('#input, #results').slideToggle();
+});
+
+console.log('asdf')
+$(".badge").click(function(){
+  $('#racker').modal({
+    keyboard: true
+  });
 });
 
 jQuery(document).ajaxSend(function(event, xhr, settings) {
