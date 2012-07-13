@@ -18,15 +18,11 @@ def getPercentage():
     end = getRangeEnd()
     for racker in rackerlist:
         email = racker.email
-        print email
         name = racker.name
-        print name
         names.append(name)
         workouts = sumPersonalWorkouts(start,end,email)
         percentage = 100*float(workouts)/(float(total_workout))
-        print percentage
         counter += percentage
-        print counter
         percentagelist.append(percentage)
         #temp = standing(email,workouts)
         #temp = standing(racker.email, sumPersonalWorkouts(start,end,racker.email)
