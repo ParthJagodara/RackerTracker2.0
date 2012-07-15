@@ -10,8 +10,7 @@ RackerTracker2.0 = RackerTracker1.0 + new Features() {
 
 ##TODO:
 * Add a key to SelectWinner so people know which color they are.
-* Add admin page to see a rackers workouts in the past
- * Make it so admins can add badges at will?
+* Badges
 * Create user pages /racker/{id}
  * Display graphs of usage 
   * Possible resource: http://d3js.org/ or http://www.jqplot.com/
