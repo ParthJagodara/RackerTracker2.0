@@ -5,7 +5,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 rackerSelect = '([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4})'
-pastThreeDays = '(today|yesterday|two days ago)'
 dateSelect = '([0-9]{2}-[0-9]{2}-[0-9]{4})'
 racker = '(.+)'
 
@@ -35,10 +34,6 @@ urlpatterns += patterns('rackertracker.racker',
     #racker/edit (post: name)
     url(r'^racker/' + rackerSelect + '/edit$', 'edit'),
     
-    #POST
-    #racker/{racker}/track/{days}
-    url(r'^racker/' +  rackerSelect + '/track/' + pastThreeDays + '$', 'track'),
-
     #GET
     #racker/{racker}/stats
     #url(r'^racker/' +  rackerSelect + '/stats$', 'stats')
@@ -50,6 +45,7 @@ urlpatterns += patterns('rackertracker.workouts',
     #GET and POST
     #racker/edit (post: name)
     url(r'^workouts$', "stats"),
+
     #POST
     #selectwinner
     url(r'^workouts/add$', 'add'),

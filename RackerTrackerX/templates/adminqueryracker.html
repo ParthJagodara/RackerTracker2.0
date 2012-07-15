@@ -1,5 +1,86 @@
-{% extends "admin/base_site.html" %}
+{% extends "admin/base_site.html"%}
+
+{% block title %}Query Racker{% endblock %}
 
 {% block content %}
-Hello
+<h1>Find workouts of a racker in a given date period</h1>
+<fieldset class="module aligned ">
+    <div id="errors"></div>
+    <div class="form-row field-email">
+        <label for"email">Racker:</label>
+        <input id="email" name="email" type="text" placeholder="Racker email" class="required">
+    </div>
+    <div>
+        <label for="start">Start Date:</label>
+        <input id="start" type="text" placeholder="MM-DD-YYYY" class="required">
+    </div>
+    <div>
+        <label for="end">End Date:</label>
+        <input id="end" type="text" placeholder="MM-DD-YYYY" class="required">
+    </div>
+    <a href="javascript:query();">Search</a>
+</fieldset>
+<div class="module" id="workouts"></div>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script>
+function query() {
+    var e = validate_email();
+    var d = validate_dates();
+    if (!e || !d)
+    {
+        var text = '';
+        if (!e)
+        {
+            text += 'Racker';
+            text += !d ? ', ' : ' ';
+        }
+        if (!d)
+        {
+            text += 'Date(s) ';
+        }
+        display_error(text);
+        return;
+    }
+    var url = '/ajax/workouts/' + e + '/' + $('#start').val() + '/' + $('#end').val();
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function(data) {
+            display_error('');
+            document.getElementById('workouts').innerHTML = "<h3>Workouts: "+data.workouts+"</h3>";
+        },
+        error: function() {
+            display_error('query');
+        }
+    });
+}
+function validate_email() {
+    var email = $.trim($('#email').val());
+    if (!email || ! email.match(/^.+@mailtrust.com$/)) {
+        return false;
+    }
+    return email.split('@')[0];
+}
+function validate_dates() {
+    var startDate = $.trim($('#start').val());
+    var endDate = $.trim($('#end').val());
+    if (!startDate.match('[0-9]{2}-[0-9]{2}-[0-9]{4}') || !start)
+    {
+        return false;
+    }
+    if (!endDate.match('[0-9]{2}-[0-9]{2}-[0-9]{4}') || !end)
+    {
+        return false;
+    }
+    return true;
+}
+function display_error(text) {
+    var outlineStart = '<b><font color=red>';
+    outlineStart += text ? 'Error(s): ' : '';
+    var outlineEnd = '</font></b>';
+    document.getElementById('errors').innerHTML = outlineStart + text + outlineEnd;
+}
+</script>
 {% endblock %}
+
+
