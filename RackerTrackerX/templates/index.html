@@ -173,7 +173,7 @@ function draw_results(players, month, year) {
     var email = player['email'];
     var user = email.split('@')[0];
     var score = player['score'];
-    $('<div class="badge" id="bar">').html(
+    $('<div class="badge" onclick="javascript:user_info();">').html(
       user + ' <span style="float:right">'+score+'</span>'
     ).css({
       width: nameWidth + score / max * maxWidth,
@@ -193,12 +193,11 @@ $('#return').click(function(){
   $('#input, #results').slideToggle();
 });
 
-console.log('asdf')
-$(".badge").click(function(){
+function user_info(){
   $('#racker').modal({
     keyboard: true
   });
-});
+};
 
 jQuery(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
