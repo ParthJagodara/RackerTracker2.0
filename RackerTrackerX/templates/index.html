@@ -55,13 +55,8 @@
 </div>
 
 <div class="modal hide" id="racker">
-    <h3>Test
-    asdf
-    asdf
-    asdf
-    asdf
-    asdf
-    </h3>
+    <h3 id="model-user"></h3>
+    <p>  Information for </p>
 </div>
 
 <script>
@@ -193,7 +188,8 @@ $('#return').click(function(){
   $('#input, #results').slideToggle();
 });
 
-function user_info(){
+function user_info(user){
+  document.getElementById('modal-user').innerHTML = asdf;
   $('#racker').modal({
     keyboard: true
   });
