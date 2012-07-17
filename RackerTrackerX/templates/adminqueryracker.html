@@ -3,22 +3,24 @@
 {% block title %}Query Racker{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" type="text/css" href="/static/admin/css/forms.css" />
+
 <h1>Find workouts of a racker in a given date period</h1>
+<div id="errors"></div>
 <fieldset class="module aligned ">
-    <div id="errors"></div>
-    <div class="form-row field-email">
+    <div class="form-row">
         <label for"email">Racker:</label>
-        <input id="email" name="email" type="text" placeholder="Racker email" class="required">
+        <input id="email" name="email" type="text" placeholder="Racker email" class="vTextField">
     </div>
-    <div>
+    <div class="form-row">
         <label for="start">Start Date:</label>
         <input id="start" type="text" placeholder="MM-DD-YYYY" class="required">
     </div>
-    <div>
+    <div class="form-row">
         <label for="end">End Date:</label>
         <input id="end" type="text" placeholder="MM-DD-YYYY" class="required">
     </div>
-    <a href="javascript:query();">Search</a>
+    <h3><a href="javascript:query();">Search</a></h3>
 </fieldset>
 <div class="module" id="workouts"></div>
 <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
@@ -46,7 +48,7 @@ function query() {
         type: 'GET',
         url: url,
         success: function(data) {
-            display_error('');
+            remove_errors();
             document.getElementById('workouts').innerHTML = "<h3>Workouts: "+data.workouts+"</h3>";
         },
         error: function() {
@@ -75,10 +77,13 @@ function validate_dates() {
     return true;
 }
 function display_error(text) {
-    var outlineStart = '<b><font color=red>';
+    var outlineStart = '<p class="errornote">';
     outlineStart += text ? 'Error(s): ' : '';
-    var outlineEnd = '</font></b>';
+    var outlineEnd = '</p>';
     document.getElementById('errors').innerHTML = outlineStart + text + outlineEnd;
+}
+function remove_errors() {
+   document.getElementById('errors').innerHTML = '';
 }
 </script>
 {% endblock %}
