@@ -9,15 +9,11 @@ RackerTracker2.0 = RackerTracker1.0 + new Features() {
 }
 
 ##TODO:
-* Add a key to SelectWinner so people know which color they are.
 * Badges
-* Create user pages /racker/{id}
+* Create user pages /racker/{id} or use modal on standings page
  * Display graphs of usage 
-  * Possible resource: http://d3js.org/ or http://www.jqplot.com/
- * Display times won and bages (to come)
-* How should picking the CompanyLunch work?
- * Pick two latest dates?
- * Have admin select dates?
+  * Possible resource: http://d3js.org/, http://www.jqplot.com/, or raphaeljs.com
+ * Display number of times won and badges
 
 ## Instruction to create SQLite Database
 
