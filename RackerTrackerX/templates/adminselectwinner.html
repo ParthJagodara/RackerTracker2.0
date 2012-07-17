@@ -8,16 +8,38 @@
     <head>
         <meta charset="utf-8">
         <script src="{{STATIC_URL}}javascript/raphael.js"></script>
-        <script src="{{STATIC_URL}}javascript/jquery.js"></script>
+	  <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
         <script src="{{STATIC_URL}}javascript/pie.js"></script>
 	<script type="text/javascript">
 	$(document).ready( function() {
-		$('svg').click( function() {
+		$('#holder').click( function() {
 			var rotation = Math.random() * 360 * 12 + 720;
 			var cssRotate = "rotate(" + rotation + "deg)";
 			$(this).css( '-webkit-transform', cssRotate );
 		});
 	})
+    $.ajax({
+        type: 'GET',
+        url: '/ajax/workouts/',
+        success: function(data) {
+            draw_legend(data.users);
+        }
+    });
+    function draw_legend(names) {
+        var canvas = Raphael(0, 100, 500, names.length*55);
+        var start = 0;
+        var y = 10;
+        for (i = 0; i < names.length; i++)
+        {
+            var bcolor = Raphael.hsb(start, 1, 1);
+            var color = Raphael.hsb(start, .75, 1);
+            var rect = canvas.rect(10, y, 40, 40, 5).attr({"fill":"90-"+bcolor+"-"+color,"stroke":bcolor});
+	    var text = canvas.text(250, y + 20, names[i].email).attr({"fill": bcolor, "font-size": 30});
+            start += .1;
+            y += 50;
+         }
+    }
 	</script>
         <style media="screen">
             #holder {

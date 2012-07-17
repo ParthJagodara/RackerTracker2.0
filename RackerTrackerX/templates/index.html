@@ -173,7 +173,7 @@ function draw_results(players, month, year) {
     var email = player['email'];
     var user = email.split('@')[0];
     var score = player['score'];
-    $('<div class="badge" onclick="javascript:user_info();">').html(
+    $('<div class="badge" onclick="javascript:user_info('+user.toString()+');">').html(
       user + ' <span style="float:right">'+score+'</span>'
     ).css({
       width: nameWidth + score / max * maxWidth,
