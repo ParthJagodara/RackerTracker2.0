@@ -55,8 +55,13 @@
 </div>
 
 <div class="modal hide" id="racker">
-    <h3 id="model-user"></h3>
-    <p>  Information for </p>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3>Modal header</h3>
+    </div>
+    <div class="modal-body">
+        <p>Body..............</p>
+    </div>
 </div>
 
 <script>
@@ -189,7 +194,6 @@ $('#return').click(function(){
 });
 
 function user_info(user){
-  document.getElementById('modal-user').innerHTML = asdf;
   $('#racker').modal({
     keyboard: true
   });

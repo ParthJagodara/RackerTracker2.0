@@ -32,7 +32,6 @@ def getPercentage():
     sorted(z,reverse=True)
     return z 
 
-
 def selectWinnerNow():
     start = getCurrentDates().start
     end = getCurrentDates().end

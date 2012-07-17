@@ -1,13 +1,12 @@
 {% extends "admin/base_site.html" %}
 
+{% block title %}Select a winner{% endblock %}
+
 {% block content %}
 <html lang="en">
-    <h1> Hover to select a winner! </h1>
+    <h1 id="select_title">Click the wheel to select a winner for {{ month }}</h1>
     <head>
         <meta charset="utf-8">
-        <title>Raphaël · Pie Chart</title>
-        <link rel="stylesheet" href="demo.css"media="screen">
-        <link rel="stylesheet" href="demo-print.css"media="print">
         <script src="{{STATIC_URL}}javascript/raphael.js"></script>
         <script src="{{STATIC_URL}}javascript/jquery.js"></script>
         <script src="{{STATIC_URL}}javascript/pie.js"></script>
@@ -22,32 +21,33 @@
 	</script>
         <style media="screen">
             #holder {
-                margin: 50px 0 0 300px;
-                width: 1000px;
-                height: 1000px;
-		-moz-transition: all 15s ease-in-out;
-		-webkit-transition: all 15s ease-in-out;
-		-o-transition: all 15s ease-in-out;
-		-ms-transition: all 15s ease-in-out;
-		transition: all 15s ease-in-out;
-		
+                margin: 0px 0 -25px 600px;
+                width: 700px;
+                height: 700px;
+		        -moz-transition: all 15s ease-in-out;
+		        -webkit-transition: all 15s ease-in-out;
+		        -o-transition: all 15s ease-in-out;
+		        -ms-transition: all 15s ease-in-out;
+		        transition: all 15s ease-in-out;
             }
+	    #fanatiguy {
+		margin: -300px 0 0 50px;
+	    }
         </style>
     </head>
     <body>
         <table>
             <tbody>
-            {% for entry in list %}
+            {% for user in users %}
                 <tr>
-                  <th scope="row">{{ entry.1 }}</th>
-                  <td>{{ entry.0 }} </td>
+                    <th scope="row">{{user.email}}</th>
+                    <td>{{user.percent}}</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
-        
-        <div id="holder" style="width: 300px; height: 400px; position: relative; left: 300px; top: 50px;"></div>
-        <img src="{{ STATIC_URL }}/images/fanatiguy.png" style="" alt="" />
+        <div id="holder"></div>
+        <img id="fanatiguy" src="{{ STATIC_URL }}/images/fanatiguy.png" style="" alt="" />
     </body>
 </html>
 {% endblock %}

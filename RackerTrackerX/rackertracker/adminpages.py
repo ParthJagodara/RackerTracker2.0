@@ -1,11 +1,12 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response
-from rackertracker.workouthelper import getPercentage
-from rackertracker.admin import QueryRackerForm
+from rackertracker.ajax import standing, month_total
 
 def selectwinner(request):
-    return render_to_response("adminselectwinner.html", RequestContext(request, {'list': getPercentage()}))
+    data = standing()
+    for user in data['users']:
+        user['percent'] = str(float(user['score'])/float(month_total()) * 100) + '%'
+    return render_to_response("adminselectwinner.html", RequestContext(request, data))
 
 def queryRacker(request):
-    form = QueryRackerForm()
-    return render_to_response("adminqueryracker.html", {'form': form})
+    return render_to_response("adminqueryracker.html")

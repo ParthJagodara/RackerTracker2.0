@@ -33,7 +33,6 @@ def standing():
     response_data = {}
     response_data['month'] = getRangeEnd().strftime('%B')
     response_data['year'] = getRangeEnd().year
-    print(response_data)
     orderedLunches = CompanyLunch.objects.order_by('date')
     startDate = orderedLunches[0].date
     endDate = orderedLunches[1].date
@@ -48,6 +47,12 @@ def standing():
         users.append(user)
     response_data['users'] = sorted(users, key=itemgetter('score'), reverse=True)
     return response_data
+
+def month_total():
+    orderedLunches = CompanyLunch.objects.order_by('date')
+    startDate = orderedLunches[0].date
+    endDate = orderedLunches[1].date
+    return Workout.objects.filter(date__gte = startDate, date__lte = endDate).count()
 
 def individual(request, user, start, end):
     dateFormat = '%m-%d-%Y'
