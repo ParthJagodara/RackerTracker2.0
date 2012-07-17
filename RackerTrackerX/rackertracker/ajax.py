@@ -42,11 +42,26 @@ def standing():
     for rackerID in rackers:
         user = {}
         tempRacker = Racker.objects.get(pk=rackerID)
-        user['email'] = tempRacker.email
+        user['email'] = tempRacker.name
         user['score'] = workoutsInRange.filter(racker=tempRacker).count()
         users.append(user)
     response_data['users'] = sorted(users, key=itemgetter('score'), reverse=True)
     return response_data
+
+def users(response):
+    orderedLunches = CompanyLunch.objects.order_by('date')
+    startDate = orderedLunches[0].date
+    endDate = orderedLunches[1].date
+    workoutsInRange = Workout.objects.filter(date__gte = startDate, date__lte = endDate)
+    rackers = Workout.objects.values_list('racker', flat=True).distinct()
+    rack = list()
+    for racker in rackers:
+        user = {}
+        user['name'] = Racker.objects.get(pk=racker).name
+        rack.append(user)
+    data = {}
+    data['users'] = rack
+    return HttpResponse(simplejson.dumps(data), mimetype="application/json")
 
 def month_total():
     orderedLunches = CompanyLunch.objects.order_by('date')
