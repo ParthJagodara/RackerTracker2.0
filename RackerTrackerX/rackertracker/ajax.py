@@ -80,9 +80,9 @@ def individual(request, user, start, end):
         workoutsInRange = Workout.objects.filter(date__gte = startDate, date__lte = endDate)
         try:
             r = Racker.objects.get(email = email)
+            rackerWorkouts = workoutsInRange.filter(racker = r).count()
         except Racker.DoesNotExist:
-            return HttpResponse("error")
-        rackerWorkouts = workoutsInRange.filter(racker = r).count()
+            rackerWorkouts = 0
         data = {}
         data['workouts'] = rackerWorkouts
         return HttpResponse(simplejson.dumps(data), mimetype="application/json")
