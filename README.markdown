@@ -9,6 +9,7 @@ RackerTracker2.0 = RackerTracker1.0 + new Features() {
 }
 
 ##TODO:
+* /ajax/workouts shouldn't return rackers with 0 workouts
 * Badges
 * Create user pages /racker/{id} or use modal on standings page
  * Display graphs of usage 
