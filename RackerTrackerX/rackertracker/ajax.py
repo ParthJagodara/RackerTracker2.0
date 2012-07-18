@@ -1,6 +1,6 @@
 from django.http import *
 from django.utils import simplejson
-from rackertracker.models import Racker, Workout, CompanyLunch
+from rackertracker.models import Racker, Workout, CompanyLunch, Winner
 from rackertracker.competitiondates import getRangeEnd
 from operator import itemgetter
 from datetime import datetime
@@ -86,3 +86,20 @@ def individual(request, user, start, end):
         data = {}
         data['workouts'] = rackerWorkouts
         return HttpResponse(simplejson.dumps(data), mimetype="application/json")
+
+def wins(request, user):
+    if request.method == 'GET':
+        email = user.strip() + '@mailtrust.com'
+        wins = {}
+        data = list()
+        try:
+            racker = Racker.objects.get(email = email)
+            winnings = Winner.objects.filter(racker = Racker.objects.get(email=email))
+            for win in winnings:
+                item = {}
+                item['won'] = datetime.strftime(win.date.date, '%m-%d-%Y')
+                data.append(item)
+            wins['wins'] = data
+        except Racker.DoesNotExist:
+            wins['wins'] = data
+        return HttpResponse(simplejson.dumps(wins), mimetype="application/json")

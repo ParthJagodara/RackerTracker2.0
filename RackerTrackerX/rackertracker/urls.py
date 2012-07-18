@@ -24,6 +24,7 @@ urlpatterns += patterns('rackertracker.ajax',
     url(r'^ajax/workouts/$', 'workouts'),
     url(r'^ajax/workouts/' + racker + '/' + dateSelect + '/' + dateSelect + '$', 'individual'),
     url(r'^ajax/users/$', 'users'),
+    url(r'^ajax/wins/' + racker + '$', 'wins')
 )
 
 urlpatterns += patterns('rackertracker.racker',
