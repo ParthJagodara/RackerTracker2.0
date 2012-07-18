@@ -57,10 +57,15 @@
 <div class="modal hide" id="racker">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">×</button>
-        <h3>Modal header</h3>
+        <h3 id="racker-modal-title">Modal header</h3>
     </div>
     <div class="modal-body">
-        <p>Body..............</p>
+        <p id="racker-text">Body</p>
+        
+        <p>Won:</p>
+        <ul><div id="winning">
+            <li>1</li>
+        </div></ul>
     </div>
 </div>
 
@@ -173,7 +178,7 @@ function draw_results(players, month, year) {
     var email = player['email'];
     var user = email.split('@')[0];
     var score = player['score'];
-    $('<div class="badge">').html(
+    $('<div id='+user+' class="badge" onclick="javascript:user_info(this.id);">').html(
       user + ' <span style="float:right">'+score+'</span>'
     ).css({
       width: nameWidth + score / max * maxWidth,
@@ -192,6 +197,14 @@ function draw_results(players, month, year) {
 $('#return').click(function(){  
   $('#input, #results').slideToggle();
 });
+
+function user_info(user){
+  document.getElementById('racker-modal-title').innerHTML = user;
+  document.getElementById('racker-text').innerHTML = user;
+  $('#racker').modal({
+    keyboard: true
+  });
+};
 
 jQuery(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
