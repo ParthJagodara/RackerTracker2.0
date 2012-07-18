@@ -201,6 +201,18 @@ $('#return').click(function(){
 function user_info(user){
   document.getElementById('racker-modal-title').innerHTML = user;
   document.getElementById('racker-text').innerHTML = user;
+  $.ajax({
+    type: 'GET',
+    url: 'ajax/wins/'+user,
+    success: function(data) {
+      var text = "";
+      for (i = 0; i < data.wins.length; i++)
+      {
+          text += "<li>" + data.wins[i]['won'] + "</li>"
+      }
+      document.getElementById('winning').innerHTML = text;
+    }
+  });
   $('#racker').modal({
     keyboard: true
   });

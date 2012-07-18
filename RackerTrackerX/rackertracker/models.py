@@ -29,6 +29,9 @@ class CompanyLunch(models.Model):
 class Winner(models.Model):
     racker = models.ForeignKey(Racker)
     date = models.ForeignKey(CompanyLunch)
+    
+    class Meta:
+        unique_together = ('racker', 'date')
 
     def __unicode__(self):
         return self.racker.name + ' won ' + unicode(self.date)
