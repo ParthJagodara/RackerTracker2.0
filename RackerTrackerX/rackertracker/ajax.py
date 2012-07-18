@@ -37,7 +37,7 @@ def standing():
     startDate = orderedLunches[0].date
     endDate = orderedLunches[1].date
     workoutsInRange = Workout.objects.filter(date__gte = startDate, date__lte = endDate)
-    rackers = Workout.objects.values_list('racker', flat=True).distinct()
+    rackers = workoutsInRange.values_list('racker', flat=True).distinct()
     users = list()
     for rackerID in rackers:
         user = {}
