@@ -20,15 +20,15 @@ class Workout(models.Model):
     class Meta:
         unique_together = ('racker', 'date')
 
-class Winner(models.Model):
-    racker = models.ForeignKey(Racker)
-    date = models.DateField()
-
-    def __unicode__(self):
-        return self.racker.name + ' won ' + unicode(self.date)
-
 class CompanyLunch(models.Model):
     date = models.DateField()
 
     def __unicode__(self):
         return 'Company Lunch ' + unicode(self.date)
+
+class Winner(models.Model):
+    racker = models.ForeignKey(Racker)
+    date = models.ForeignKey(CompanyLunch)
+
+    def __unicode__(self):
+        return self.racker.name + ' won ' + unicode(self.date)
