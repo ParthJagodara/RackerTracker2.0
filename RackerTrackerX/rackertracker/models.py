@@ -32,3 +32,11 @@ class Winner(models.Model):
 
     def __unicode__(self):
         return self.racker.name + ' won ' + unicode(self.date)
+
+class Badge(models.Model):
+    title = models.CharField(max_length=64)
+    desc = models.TextField('Description')
+    rackers = models.ManyToManyField(Racker, blank=True)
+
+    def __unicode__(self):
+        return self.title
